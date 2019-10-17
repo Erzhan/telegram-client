@@ -3,8 +3,6 @@ package kz.kaznu.telegramclient.services.telegram;
 import kz.kaznu.telegramclient.services.telegram.handlers.ChatsHandlerImpl;
 import kz.kaznu.telegramclient.services.telegram.handlers.CustomUpdatesHandler;
 import kz.kaznu.telegramclient.services.telegram.handlers.UsersHandlerImpl;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 import org.telegram.bot.ChatUpdatesBuilder;
 import org.telegram.bot.handlers.UpdatesHandlerBase;
@@ -15,22 +13,21 @@ import org.telegram.bot.kernel.differenceparameters.IDifferenceParametersService
 /**
  * Created by yerzhan on 10/8/19.
  */
-@Setter
-@Getter
 @Service
 public class ChatUpdatesBuilderImpl implements ChatUpdatesBuilder {
 
   private IKernelComm kernelComm;
   private IDifferenceParametersService differenceParametersService;
-  private DatabaseManager databaseManager;
 
+  private final DatabaseManagerImpl databaseManager;
   private final ChatsHandlerImpl chatsHandler;
   private final UsersHandlerImpl usersHandler;
 
   public ChatUpdatesBuilderImpl(ChatsHandlerImpl chatsHandler,
-      UsersHandlerImpl usersHandler) {
+      UsersHandlerImpl usersHandler, DatabaseManagerImpl databaseManager) {
     this.chatsHandler = chatsHandler;
     this.usersHandler = usersHandler;
+    this.databaseManager = databaseManager;
   }
 
 
