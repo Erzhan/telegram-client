@@ -95,17 +95,17 @@ public class CustomUpdatesHandler extends DefaultUpdatesHandler {
 
   @Override
   public void onTLUpdateNewMessageCustom(TLUpdateNewMessage update) {
-    System.out.println(update.getClassId());
+    System.out.println("onTLUpdateNewMessageCustom" + update.getClassId());
   }
 
   @Override
   public void onTLUpdateChannelNewMessageCustom(TLUpdateChannelNewMessage update) {
-    System.out.println(update.getChannelId());
+    System.out.println("onTLUpdateChannelNewMessageCustom" + update.getChannelId());
   }
 
   @Override
   public void onTLUpdateChannelCustom(TLUpdateChannel update) {
-    System.out.println(update.getChannelId());
+    System.out.println("onTLUpdateChannelCustom" + update.getChannelId());
   }
 
   @Override
