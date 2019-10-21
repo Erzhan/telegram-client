@@ -2,12 +2,14 @@ package kz.kaznu.telegramclient.services.telegram;
 
 import java.util.HashMap;
 import java.util.Optional;
+import kz.kaznu.telegramclient.models.TelegramChat;
 import kz.kaznu.telegramclient.models.TelegramUser;
+import kz.kaznu.telegramclient.models.telegram.ChatImpl;
 import kz.kaznu.telegramclient.models.telegram.User;
+import kz.kaznu.telegramclient.repositories.TelegramChatRepository;
 import kz.kaznu.telegramclient.repositories.TelegramUserRepository;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.bot.kernel.database.DatabaseManager;
 import org.telegram.bot.structure.Chat;
@@ -20,10 +22,13 @@ import org.telegram.bot.structure.IUser;
 public class DatabaseManagerImpl implements DatabaseManager {
 
   private final TelegramUserRepository telegramUserRepository;
+  private final TelegramChatRepository telegramChatRepository;
 
   public DatabaseManagerImpl(
-      TelegramUserRepository telegramUserRepository) {
+      TelegramUserRepository telegramUserRepository,
+      TelegramChatRepository telegramChatRepository) {
     this.telegramUserRepository = telegramUserRepository;
+    this.telegramChatRepository = telegramChatRepository;
   }
 
   @Override
@@ -35,14 +40,15 @@ public class DatabaseManagerImpl implements DatabaseManager {
 
   @Override
   public @Nullable Chat getChatById(int chatId) {
-    return null;
+    final Optional<TelegramChat> telegramChat = telegramChatRepository.findById((long) chatId);
+    return telegramChat.map(user -> new ChatImpl(Math.toIntExact(telegramChat.get().getId()),
+        telegramChat.get().getAccessHash(), true)).orElse(null);
   }
 
 
   @Override
   public @NotNull HashMap<Integer, int[]> getDifferencesData() {
-    final HashMap<Integer, int[]> differencesDatas = new HashMap<>();
-    return differencesDatas;
+    return new HashMap<>();
   }
 
   @Override

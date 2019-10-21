@@ -79,6 +79,7 @@ public class CustomUpdatesHandler extends DefaultUpdatesHandler {
 
   private UsersHandlerImpl usersHandler;
   private ChatsHandlerImpl chatsHandler;
+  private MessageHandler messageHandler;
 
 
   public CustomUpdatesHandler(IKernelComm kernelComm,
@@ -290,7 +291,7 @@ public class CustomUpdatesHandler extends DefaultUpdatesHandler {
 
   @Override
   protected void onTLUpdateShortChatMessageCustom(TLUpdateShortChatMessage update) {
-    System.out.println(update.getClassId());
+    messageHandler.onMessage(update);
   }
 
   @Override
@@ -300,7 +301,7 @@ public class CustomUpdatesHandler extends DefaultUpdatesHandler {
 
   @Override
   protected void onTLAbsMessageCustom(TLAbsMessage message) {
-    System.out.println(message.getChatId());
+    messageHandler.onMessage(message);
   }
 
   @Override
@@ -424,5 +425,9 @@ public class CustomUpdatesHandler extends DefaultUpdatesHandler {
 
   public void setChatsHandler(ChatsHandlerImpl chatsHandler) {
     this.chatsHandler = chatsHandler;
+  }
+
+  public void setMessageHandler(MessageHandler messageHandler) {
+    this.messageHandler = messageHandler;
   }
 }

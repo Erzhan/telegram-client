@@ -2,6 +2,7 @@ package kz.kaznu.telegramclient.services.telegram;
 
 import kz.kaznu.telegramclient.services.telegram.handlers.ChatsHandlerImpl;
 import kz.kaznu.telegramclient.services.telegram.handlers.CustomUpdatesHandler;
+import kz.kaznu.telegramclient.services.telegram.handlers.MessageHandler;
 import kz.kaznu.telegramclient.services.telegram.handlers.UsersHandlerImpl;
 import org.springframework.stereotype.Service;
 import org.telegram.bot.ChatUpdatesBuilder;
@@ -22,12 +23,15 @@ public class ChatUpdatesBuilderImpl implements ChatUpdatesBuilder {
   private final DatabaseManagerImpl databaseManager;
   private final ChatsHandlerImpl chatsHandler;
   private final UsersHandlerImpl usersHandler;
+  private final MessageHandler messageHandler;
 
   public ChatUpdatesBuilderImpl(ChatsHandlerImpl chatsHandler,
-      UsersHandlerImpl usersHandler, DatabaseManagerImpl databaseManager) {
+      UsersHandlerImpl usersHandler, DatabaseManagerImpl databaseManager,
+      MessageHandler messageHandler) {
     this.chatsHandler = chatsHandler;
     this.usersHandler = usersHandler;
     this.databaseManager = databaseManager;
+    this.messageHandler = messageHandler;
   }
 
 
@@ -47,6 +51,7 @@ public class ChatUpdatesBuilderImpl implements ChatUpdatesBuilder {
         differenceParametersService, databaseManager);
     customUpdatesHandler.setUsersHandler(usersHandler);
     customUpdatesHandler.setChatsHandler(chatsHandler);
+    customUpdatesHandler.setMessageHandler(messageHandler);
     return customUpdatesHandler;
 
   }

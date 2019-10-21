@@ -1,7 +1,6 @@
 package kz.kaznu.telegramclient.components;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Scanner;
 import kz.kaznu.telegramclient.configs.CustomBotConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -38,18 +37,16 @@ public class TelegramBotComponent {
     final BotConfig botConfig = new CustomBotConfig(phoneNumber);
     botConfig.setAuthfile("auth");
     try {
-
       final TelegramBot kernel = new TelegramBot(botConfig, chatUpdatesBuilder, apiKey, apiHash);
-
       LoginStatus status = kernel.init();
 
-      if (status == LoginStatus.CODESENT) {
+      /*if (status == LoginStatus.CODESENT) {
         Scanner in = new Scanner(System.in);
         boolean success = kernel.getKernelAuth().setAuthCode(in.nextLine().trim());
         if (success) {
           status = LoginStatus.ALREADYLOGGED;
         }
-      }
+      }*/
 
       if (status == LoginStatus.ALREADYLOGGED) {
         kernel.startBot();
