@@ -1,6 +1,7 @@
 package kz.kaznu.telegramclient.components;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Scanner;
 import kz.kaznu.telegramclient.configs.CustomBotConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

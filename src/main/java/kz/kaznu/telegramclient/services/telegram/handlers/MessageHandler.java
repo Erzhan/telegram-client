@@ -8,6 +8,7 @@ import kz.kaznu.telegramclient.models.TelegramUser;
 import kz.kaznu.telegramclient.repositories.TelegramChatRepository;
 import kz.kaznu.telegramclient.repositories.TelegramMessageRepository;
 import kz.kaznu.telegramclient.repositories.TelegramUserRepository;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
 import org.telegram.api.message.TLAbsMessage;
 import org.telegram.api.message.TLMessage;
@@ -20,6 +21,8 @@ import org.telegram.api.updates.TLUpdateShortChatMessage;
  */
 @Service
 public class MessageHandler {
+
+  private java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MessageHandler.class.getSimpleName());
 
   private final TelegramMessageRepository telegramMessageRepository;
   private final TelegramUserRepository telegramUserRepository;
@@ -35,6 +38,9 @@ public class MessageHandler {
   }
 
   public void onMessage(TLAbsMessage message) {
+
+    MDC.put("chat_id", String.valueOf(message.getChatId()));
+    logger.info(message.toString());
     if (message instanceof TLMessage) {
       onTLMessage((TLMessage) message);
     } else if (message instanceof TLMessageEmpty) {
@@ -44,23 +50,27 @@ public class MessageHandler {
     }
   }
 
-  public void onMessage(TLUpdateShortChatMessage updateShortChatMessage) {
+  public void onMessage(TLUpdateShortChatMessage message) {
+
+    //TODO
+    MDC.put("chat_id", String.valueOf(message.getChatId()));
+    logger.info(message.toString());
     List<TelegramMessage> messages = telegramMessageRepository
-        .findByMessageIdAndTelegramChat(updateShortChatMessage.getId(),
-            updateShortChatMessage.getChatId());
+        .findByMessageIdAndTelegramChat(message.getId(),
+                                        message.getChatId());
 
     if (messages.isEmpty()) {
       messages = telegramMessageRepository
-          .findByMessageIdAndTelegramChat(updateShortChatMessage.getId(),
-              updateShortChatMessage.getFromId());
+          .findByMessageIdAndTelegramChat(message.getId(),
+                                          message.getFromId());
     }
 
     if (messages.isEmpty()) {
       final TelegramMessage telegramMessage = new TelegramMessage();
-      telegramMessage.setMessageId((long) updateShortChatMessage.getId());
-      telegramMessage.setMessage(String.valueOf(updateShortChatMessage.getMessage()));
-      telegramMessage.setTelegramChat(findTelegramChatById(updateShortChatMessage.getChatId()));
-      telegramMessage.setTelegramUser(findTelegramUserById(updateShortChatMessage.getFromId()));
+      telegramMessage.setMessageId((long) message.getId());
+      telegramMessage.setMessage(String.valueOf(message.getMessage()));
+      telegramMessage.setTelegramChat(findTelegramChatById(message.getChatId()));
+      telegramMessage.setTelegramUser(findTelegramUserById(message.getFromId()));
       telegramMessageRepository.save(telegramMessage);
     }
   }
