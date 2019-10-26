@@ -1,0 +1,8 @@
+telegram.api.key=1059464
+telegram.api.hash=2ec6e1ec0db6dadc2a6ad1689f721358
+telegram.phone.number=77777732350
+
+spring.datasource.platform=postgres
+spring.datasource.url=jdbc:postgresql://localhost:5432/telegram
+spring.datasource.username=postgres
+spring.datasource.password=postgres
