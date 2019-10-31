@@ -1,7 +1,7 @@
 package kz.kaznu.telegramclient.components;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Scanner;
+import java.util.logging.Logger;
 import kz.kaznu.telegramclient.configs.CustomBotConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -29,6 +29,9 @@ public class TelegramBotComponent {
 
   private final ChatUpdatesBuilder chatUpdatesBuilder;
 
+  private Logger logger = java.util.logging.Logger
+      .getLogger(TelegramBotComponent.class.getSimpleName());
+
   public TelegramBotComponent(ChatUpdatesBuilder chatUpdatesBuilder) {
     this.chatUpdatesBuilder = chatUpdatesBuilder;
   }
@@ -41,6 +44,8 @@ public class TelegramBotComponent {
       final TelegramBot kernel = new TelegramBot(botConfig, chatUpdatesBuilder, apiKey, apiHash);
       LoginStatus status = kernel.init();
 
+      logger.info("Status after init = " + status.name());
+
       /*if (status == LoginStatus.CODESENT) {
         Scanner in = new Scanner(System.in);
         boolean success = kernel.getKernelAuth().setAuthCode(in.nextLine().trim());
@@ -51,11 +56,13 @@ public class TelegramBotComponent {
 
       if (status == LoginStatus.ALREADYLOGGED) {
         kernel.startBot();
+        logger.info("Bot started");
       } else {
-        System.out.println("Failed to log in: " + status);
+        logger.info("Failed to log in: " + status);
       }
     } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
       e.printStackTrace();
+      logger.severe(e.getMessage());
     }
   }
 }

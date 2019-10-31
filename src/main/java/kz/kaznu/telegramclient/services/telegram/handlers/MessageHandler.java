@@ -1,10 +1,13 @@
 package kz.kaznu.telegramclient.services.telegram.handlers;
 
+import com.google.gson.Gson;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import kz.kaznu.telegramclient.models.TelegramChat;
 import kz.kaznu.telegramclient.models.TelegramMessage;
 import kz.kaznu.telegramclient.models.TelegramUser;
+import kz.kaznu.telegramclient.models.dummy.MessageForLogging;
 import kz.kaznu.telegramclient.repositories.TelegramChatRepository;
 import kz.kaznu.telegramclient.repositories.TelegramMessageRepository;
 import kz.kaznu.telegramclient.repositories.TelegramUserRepository;
@@ -22,14 +25,13 @@ import org.telegram.api.updates.TLUpdateShortChatMessage;
 @Service
 public class MessageHandler {
 
-  private java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MessageHandler.class.getSimpleName());
-
+  private Logger logger = java.util.logging.Logger.getLogger(MessageHandler.class.getSimpleName());
+  private static final Gson gson = new Gson();
   private final TelegramMessageRepository telegramMessageRepository;
   private final TelegramUserRepository telegramUserRepository;
   private final TelegramChatRepository telegramChatRepository;
 
-  public MessageHandler(
-      TelegramMessageRepository telegramMessageRepository,
+  public MessageHandler(TelegramMessageRepository telegramMessageRepository,
       TelegramUserRepository telegramUserRepository,
       TelegramChatRepository telegramChatRepository) {
     this.telegramMessageRepository = telegramMessageRepository;
@@ -38,31 +40,28 @@ public class MessageHandler {
   }
 
   public void onMessage(TLAbsMessage message) {
-
-    MDC.put("chat_id", String.valueOf(message.getChatId()));
-    logger.info(message.toString());
     if (message instanceof TLMessage) {
       onTLMessage((TLMessage) message);
     } else if (message instanceof TLMessageEmpty) {
       onTLMessageEmpty((TLMessageEmpty) message);
     } else if (message instanceof TLMessageService) {
       onTLMessageService((TLMessageService) message);
+    } else {
+      logger.severe(
+          "Message is not instanceof [TLMessage/TLMessageEmpty/TLMessageService] for object = "
+              + message.toString());
     }
   }
 
   public void onMessage(TLUpdateShortChatMessage message) {
-
-    //TODO
-    MDC.put("chat_id", String.valueOf(message.getChatId()));
-    logger.info(message.toString());
+    MDC.put("message_id", String.valueOf(message.getId()));
+    logger.info("Received message_id = " + message.getId());
     List<TelegramMessage> messages = telegramMessageRepository
-        .findByMessageIdAndTelegramChat(message.getId(),
-                                        message.getChatId());
+        .findByMessageIdAndTelegramChat(message.getId(), message.getChatId());
 
     if (messages.isEmpty()) {
       messages = telegramMessageRepository
-          .findByMessageIdAndTelegramChat(message.getId(),
-                                          message.getFromId());
+          .findByMessageIdAndTelegramChat(message.getId(), message.getFromId());
     }
 
     if (messages.isEmpty()) {
@@ -72,10 +71,13 @@ public class MessageHandler {
       telegramMessage.setTelegramChat(findTelegramChatById(message.getChatId()));
       telegramMessage.setTelegramUser(findTelegramUserById(message.getFromId()));
       telegramMessageRepository.save(telegramMessage);
+      logger.info(gson.toJson(new MessageForLogging(telegramMessage)));
     }
   }
 
   private void onTLMessage(TLMessage message) {
+    MDC.put("message_id", String.valueOf(message.getId()));
+    logger.info("Received message_id = " + message.getId());
     List<TelegramMessage> messages = telegramMessageRepository
         .findByMessageIdAndTelegramChat(message.getId(), message.getChatId());
 
@@ -91,10 +93,13 @@ public class MessageHandler {
       telegramMessage.setTelegramChat(findTelegramChatById(message.getChatId()));
       telegramMessage.setTelegramUser(findTelegramUserById(message.getFromId()));
       telegramMessageRepository.save(telegramMessage);
+      logger.info(gson.toJson(new MessageForLogging(telegramMessage)));
     }
   }
 
   private void onTLMessageEmpty(TLMessageEmpty message) {
+    MDC.put("message_id", String.valueOf(message.getId()));
+    logger.info("Received message_id = " + message.getId());
     final List<TelegramMessage> messages = telegramMessageRepository
         .findByMessageIdAndTelegramChat(message.getId(), message.getChatId());
 
@@ -103,10 +108,13 @@ public class MessageHandler {
       telegramMessage.setMessageId((long) message.getId());
       telegramMessage.setTelegramChat(findTelegramChatById(message.getChatId()));
       telegramMessageRepository.save(telegramMessage);
+      logger.info(gson.toJson(new MessageForLogging(telegramMessage)));
     }
   }
 
   private void onTLMessageService(TLMessageService message) {
+    MDC.put("message_id", String.valueOf(message.getId()));
+    logger.info("Received message_id = " + message.getId());
     List<TelegramMessage> messages = telegramMessageRepository
         .findByMessageIdAndTelegramChat(message.getId(), message.getChatId());
 
@@ -122,6 +130,7 @@ public class MessageHandler {
       telegramMessage.setTelegramChat(findTelegramChatById(message.getChatId()));
       telegramMessage.setTelegramUser(findTelegramUserById(message.getFromId()));
       telegramMessageRepository.save(telegramMessage);
+      logger.info(gson.toJson(new MessageForLogging(telegramMessage)));
     }
   }
 

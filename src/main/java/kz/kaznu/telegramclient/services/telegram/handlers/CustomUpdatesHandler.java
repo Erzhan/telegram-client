@@ -1,6 +1,7 @@
 package kz.kaznu.telegramclient.services.telegram.handlers;
 
 import java.util.List;
+import java.util.logging.Logger;
 import org.telegram.api.chat.TLAbsChat;
 import org.telegram.api.message.TLAbsMessage;
 import org.telegram.api.update.TLFakeUpdate;
@@ -77,6 +78,9 @@ import org.telegram.bot.kernel.differenceparameters.IDifferenceParametersService
  */
 public class CustomUpdatesHandler extends DefaultUpdatesHandler {
 
+  private Logger logger = java.util.logging.Logger
+      .getLogger(CustomUpdatesHandler.class.getSimpleName());
+
   private UsersHandlerImpl usersHandler;
   private ChatsHandlerImpl chatsHandler;
   private MessageHandler messageHandler;
@@ -91,202 +95,202 @@ public class CustomUpdatesHandler extends DefaultUpdatesHandler {
 
   @Override
   public void onTLUpdateChatParticipantsCustom(TLUpdateChatParticipants update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateChatParticipantsCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateNewMessageCustom(TLUpdateNewMessage update) {
-    System.out.println("onTLUpdateNewMessageCustom" + update.getClassId());
+    logger.fine("onTLUpdateNewMessageCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateChannelNewMessageCustom(TLUpdateChannelNewMessage update) {
-    System.out.println("onTLUpdateChannelNewMessageCustom" + update.getChannelId());
+    logger.fine("onTLUpdateChannelNewMessageCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateChannelCustom(TLUpdateChannel update) {
-    System.out.println("onTLUpdateChannelCustom" + update.getChannelId());
+    logger.fine("onTLUpdateChannelCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateBotInlineQueryCustom(TLUpdateBotInlineQuery update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateBotInlineQueryCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateBotInlineSendCustom(TLUpdateBotInlineSend update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateBotInlineSendCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateChannelMessageViewsCustom(TLUpdateChannelMessageViews update) {
-    System.out.println(update.getChannelId());
+    logger.fine("onTLUpdateChannelMessageViewsCustom = " + update.getChannelId());
   }
 
   @Override
   public void onTLUpdateChannelPinnedMessageCustom(TLUpdateChannelPinnedMessage update) {
-    System.out.println(update.getChannelId());
+    logger.fine("onTLUpdateChannelPinnedMessageCustom = " + update.getChannelId());
   }
 
   @Override
   public void onTLUpdateChatAdminCustom(TLUpdateChatAdmin update) {
-    System.out.println(update.getChatId());
+    logger.fine("onTLUpdateChatAdminCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateChatParticipantAddCustom(TLUpdateChatParticipantAdd update) {
-    System.out.println(update.getChatId());
+    logger.fine("onTLUpdateChatParticipantAddCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateChatParticipantAdminCustom(TLUpdateChatParticipantAdmin update) {
-    System.out.println(update.getChatId());
+    logger.fine("onTLUpdateChatParticipantAdminCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateChatParticipantDeleteCustom(TLUpdateChatParticipantDelete update) {
-    System.out.println(update.getChatId());
+    logger.fine("onTLUpdateChatParticipantDeleteCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateChatUserTypingCustom(TLUpdateChatUserTyping update) {
-    System.out.println(update.getChatId());
+    logger.fine("onTLUpdateChatUserTypingCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateContactLinkCustom(TLUpdateContactLink update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateContactLinkCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateContactRegisteredCustom(TLUpdateContactRegistered update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateContactRegisteredCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateDcOptionsCustom(TLUpdateDcOptions update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateDcOptionsCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateDeleteChannelMessagesCustom(TLUpdateDeleteChannelMessages update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateDeleteChannelMessagesCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateDeleteMessagesCustom(TLUpdateDeleteMessages update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateDeleteMessagesCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateEditChannelMessageCustom(TLUpdateEditChannelMessage update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateEditChannelMessageCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateMessageIdCustom(TLUpdateMessageId update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateMessageIdCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateNewStickerSetCustom(TLUpdateNewStickerSet update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateNewStickerSetCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateNotifySettingsCustom(TLUpdateNotifySettings update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateNotifySettingsCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdatePrivacyCustom(TLUpdatePrivacy update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdatePrivacyCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateReadChannelInboxCustom(TLUpdateReadChannelInbox update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateReadChannelInboxCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateReadMessagesContentsCustom(TLUpdateReadMessagesContents update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateReadMessagesContentsCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateReadMessagesInboxCustom(TLUpdateReadMessagesInbox update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateReadMessagesInboxCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateReadMessagesOutboxCustom(TLUpdateReadMessagesOutbox update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateReadMessagesOutboxCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateSavedGifsCustom(TLUpdateSavedGifs update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateSavedGifsCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateServiceNotificationCustom(TLUpdateServiceNotification update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateServiceNotificationCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateStickerSetsCustom(TLUpdateStickerSets update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateStickerSetsCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateStickerSetsOrderCustom(TLUpdateStickerSetsOrder update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateStickerSetsOrderCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateUserBlockedCustom(TLUpdateUserBlocked update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateUserBlockedCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateUserNameCustom(TLUpdateUserName update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateUserNameCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateUserPhoneCustom(TLUpdateUserPhone update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateUserPhoneCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateUserPhotoCustom(TLUpdateUserPhoto update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateUserPhotoCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateUserStatusCustom(TLUpdateUserStatus update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateUserStatusCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateUserTypingCustom(TLUpdateUserTyping update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateUserTypingCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateWebPageCustom(TLUpdateWebPage update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateWebPageCustom = " + update.toString());
   }
 
   @Override
   protected void onTLFakeUpdateCustom(TLFakeUpdate update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLFakeUpdateCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateShortMessageCustom(TLUpdateShortMessage update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateShortMessageCustom = " + update.toString());
   }
 
   @Override
@@ -296,7 +300,7 @@ public class CustomUpdatesHandler extends DefaultUpdatesHandler {
 
   @Override
   protected void onTLUpdateShortSentMessageCustom(TLUpdateShortSentMessage update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateShortSentMessageCustom = " + update.toString());
   }
 
   @Override
@@ -316,107 +320,107 @@ public class CustomUpdatesHandler extends DefaultUpdatesHandler {
 
   @Override
   protected void onTLUpdateEncryptionCustom(TLUpdateEncryption update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateEncryptionCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateEncryptedMessagesReadCustom(TLUpdateEncryptedMessagesRead update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateEncryptedMessagesReadCustom = " + update.toString());
   }
 
   @Override
   protected void onTLUpdateNewEncryptedMessageCustom(TLUpdateNewEncryptedMessage update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateNewEncryptedMessageCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateEncryptedChatTypingCustom(TLUpdateEncryptedChatTyping update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateEncryptedChatTypingCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateConfigCustom(TLUpdateConfig update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateConfigCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateDraftMessageCustom(TLUpdateDraftMessage update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateDraftMessageCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdatePtsChangedCustom(TLUpdatePtsChanged update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdatePtsChangedCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateReadChannelOutboxCustom(TLUpdateReadChannelOutbox update) {
-    System.out.println(update.getChannelId());
+    logger.fine("onTLUpdateReadChannelOutboxCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateReadFeaturedStickersCustom(TLUpdateReadFeaturedStickers update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateReadFeaturedStickersCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateRecentStickersCustom(TLUpdateRecentStickers update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateRecentStickersCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateBotCallbackQueryCustom(TLUpdateBotCallbackQuery update) {
-    System.out.println(update.getChatInstance());
+    logger.fine("onTLUpdateBotCallbackQueryCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateEditMessageCustom(TLUpdateEditMessage update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateEditMessageCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateInlineBotCallbackQueryCustom(TLUpdateInlineBotCallbackQuery update) {
-    System.out.println(update.getChatInstance());
+    logger.fine("onTLUpdateInlineBotCallbackQueryCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateChannelWebPageCustom(TLUpdateChannelWebPage update) {
-    System.out.println(update.getChannelId());
+    logger.fine("onTLUpdateChannelWebPageCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdatePhoneCallCustom(TLUpdatePhoneCall update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdatePhoneCallCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateDialogPinnedCustom(TLUpdateDialogPinned update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateDialogPinnedCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdatePinnedDialogsCustom(TLUpdatePinnedDialogs update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdatePinnedDialogsCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateBotWebhookJSONCustom(TLUpdateBotWebhookJSON update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateBotWebhookJSONCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateBotWebhookJSONQueryCustom(TLUpdateBotWebhookJSONQuery update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateBotWebhookJSONQueryCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateBotShippingQueryCustom(TLUpdateBotShippingQuery update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateBotShippingQueryCustom = " + update.toString());
   }
 
   @Override
   public void onTLUpdateBotPrecheckoutQueryCustom(TLUpdateBotPrecheckoutQuery update) {
-    System.out.println(update.getClassId());
+    logger.fine("onTLUpdateBotPrecheckoutQueryCustom = " + update.toString());
   }
 
   public void setUsersHandler(UsersHandlerImpl usersHandler) {

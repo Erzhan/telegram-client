@@ -43,8 +43,7 @@
             <!--# через %X[] вызываем параметр из MDC-->
             <pattern>
                 %d{yyyy-MM-dd HH:mm:ss}  %magenta([%thread]) %highlight(%-5level) [%logger{36}] [%X{api.host}:%X{api.port}]
-    ChatId=[%boldYellow(%X{chat_id})] Method=[%boldYellow(%X{api.method})] User=[%boldYellow(%X{user.name})] UserURL=[%X{user.url}]
-    HASH=[%X{stackhash}] : %boldCyan(%msg%n)
+    ChatId=[%boldYellow(%X{chat_id})] MessageId=[%boldYellow(%X{message_id})] UserId=[%boldYellow(%X{user_id})] : %boldCyan(%msg%n)
             </pattern>
         </encoder>
     </appender>
