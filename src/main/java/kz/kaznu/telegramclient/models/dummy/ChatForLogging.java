@@ -1,6 +1,7 @@
 package kz.kaznu.telegramclient.models.dummy;
 
 import kz.kaznu.telegramclient.models.TelegramChat;
+import kz.kaznu.telegramclient.models.enums.Action;
 import kz.kaznu.telegramclient.models.enums.ChatType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class ChatForLogging {
   private String restrictionReason;
   private int participantsCount;
   private ChatType type;
+  private Action action = Action.NEW_CHAT;
 
   public ChatForLogging(TelegramChat telegramChat) {
     this.flags = telegramChat.getFlags();

@@ -1,6 +1,7 @@
 package kz.kaznu.telegramclient.models.dummy;
 
 import kz.kaznu.telegramclient.models.TelegramUser;
+import kz.kaznu.telegramclient.models.enums.Action;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class UserForLogging {
   private String restrictionReason;
   private String botInlinePlaceholder;
   private String langCode;
+  private Action action = Action.NEW_USER;
 
   public UserForLogging(TelegramUser telegramUser) {
     this.flags = telegramUser.getFlags();

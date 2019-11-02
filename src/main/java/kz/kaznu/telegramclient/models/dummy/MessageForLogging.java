@@ -2,6 +2,7 @@ package kz.kaznu.telegramclient.models.dummy;
 
 import java.util.Date;
 import kz.kaznu.telegramclient.models.TelegramMessage;
+import kz.kaznu.telegramclient.models.enums.Action;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class MessageForLogging {
   private String message;
   private Date date = new Date();
   private Long messageId;
+  private Action action = Action.NEW_MESSAGE;
 
   public MessageForLogging(TelegramMessage telegramMessage) {
     this.chatForLogging = new ChatForLogging(telegramMessage.getTelegramChat());
